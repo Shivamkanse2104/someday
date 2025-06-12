@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="hearts-container"></div>
+    
+    <div class="container">
+        <section class="hero" id="hero">
+            <div class="content">
+                <h1 class="title">My Dearest Love</h1>
+                <p class="subtitle">Every moment with you feels like a beautiful dream...</p>
+                <button class="cta-button" onclick="scrollToNext()">Begin Our Story</button>
+            </div>
+        </section>
+
+        <section class="memories" id="memories">
+            <div class="content">
+                <h2>Our Journey Together</h2>
+                <div class="memory-grid">
+                    <div class="memory-card" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="Special Moments" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-star"></i>
+                                <h3>Special Moments</h3>
+                                <p>Every moment with you is precious...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memory-card" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="First Meeting" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-heart"></i>
+                                <h3>First Meeting</h3>
+                                <p>The day our story began...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memory-card" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="Late Night Talks" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-moon"></i>
+                                <h3>Late Night Talks</h3>
+                                <p>Our endless conversations...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memory-card wide" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="Our Adventures" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-compass"></i>
+                                <h3>Our Adventures</h3>
+                                <p>Exploring the world together...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memory-card" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="Sweet Surprises" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-gift"></i>
+                                <h3>Sweet Surprises</h3>
+                                <p>Those unexpected moments of joy...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="memory-card" onclick="openImageModal(this)">
+                        <div class="image-container">
+                            <img src="images/special-moment.jpg" alt="Future Dreams" class="memory-image">
+                            <div class="image-overlay">
+                                <i class="fas fa-cloud"></i>
+                                <h3>Future Dreams</h3>
+                                <p>Our hopes and dreams together...</p>
+                                <span class="view-full">Click to view full memory</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="proposal" id="proposal">
+            <div class="content">
+                <h2>You Are My Everything</h2>
+                <p class="love-letter">Every day with you is a blessing. Your smile lights up my world, and your love makes my heart complete.</p>
+                <div class="proposal-box">
+                    <h3>Will You be Mine?</h3>
+                    <div class="buttons">
+                        <button class="yes-btn" onclick="showYesResponse()">Yes!</button>
+                        <button class="no-btn" onmouseover="moveButton(this)">No</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="celebration" id="celebration" style="display: none;">
+            <div class="content">
+                <h2>You've Made Me The Happiest Person Alive!</h2>
+                <div class="fireworks"></div>
+                <p class="celebration-text">I promise to love you forever and always...</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="image-modal" id="imageModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeImageModal()">&times;</span>
+            <div class="modal-image-container">
+                <img src="" alt="Full Memory" class="modal-image">
+                <div class="modal-overlay">
+                    <h3 class="modal-title"></h3>
+                    <p class="modal-description"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 

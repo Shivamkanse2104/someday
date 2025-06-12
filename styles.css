@@ -1,0 +1,675 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+    cursor: none;
+}
+
+.hearts-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+}
+
+section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+}
+
+.content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 5rem;
+    margin-bottom: 1rem;
+    color: #ff69b4;
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    opacity: 0.9;
+}
+
+.cta-button {
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    perspective: 1000px;
+    padding: 1rem;
+}
+
+.memory-card {
+    background: transparent;
+    padding: 0;
+    border-radius: 15px;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.memory-card.wide {
+    grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+    .memory-card.wide {
+        grid-column: span 1;
+    }
+}
+
+.memory-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    z-index: 2;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memory-card.wide .image-container {
+    height: 400px;
+}
+
+.memory-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memory-card:hover .memory-image {
+    transform: scale(1.1);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.8)
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateY(20px);
+}
+
+.memory-card:hover .image-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.image-overlay i {
+    font-size: 2.5rem;
+    color: #ff69b4;
+    margin-bottom: 1rem;
+    transform: scale(0);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+}
+
+.memory-card:hover .image-overlay i {
+    transform: scale(1);
+}
+
+.image-overlay h3 {
+    color: #fff;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+}
+
+.memory-card:hover .image-overlay h3 {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.image-overlay p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.memory-card:hover .image-overlay p {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Add a subtle glow effect to the cards */
+.memory-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 105, 180, 0.2), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.memory-card:hover::after {
+    opacity: 1;
+}
+
+.proposal-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 20px;
+    margin-top: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.yes-btn, .no-btn {
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.yes-btn {
+    background: linear-gradient(45deg, #ff69b4, #ff1493);
+    color: white;
+}
+
+.no-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.yes-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+}
+
+.celebration {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+}
+
+.fireworks {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 105, 180, 0.8),
+                     0 0 30px rgba(255, 105, 180, 0.6);
+    }
+}
+
+/* Heart Animation */
+.heart {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    background: #ff69b4;
+    transform: rotate(45deg);
+    animation: heartFloat 4s ease-in-out infinite;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border-radius: 50%;
+}
+
+.heart::before {
+    left: -50%;
+}
+
+.heart::after {
+    top: -50%;
+}
+
+@keyframes heartFloat {
+    0% {
+        transform: rotate(45deg) translateY(0) scale(1);
+        opacity: 0.6;
+    }
+    25% {
+        transform: rotate(45deg) translateY(-20px) translateX(10px) scale(1.1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: rotate(45deg) translateY(-40px) translateX(-10px) scale(1.2);
+        opacity: 0.9;
+    }
+    75% {
+        transform: rotate(45deg) translateY(-60px) translateX(10px) scale(1.1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: rotate(45deg) translateY(-80px) scale(1);
+        opacity: 0;
+    }
+}
+
+.view-full {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.memory-card:hover .view-full {
+    opacity: 1;
+    bottom: 30px;
+}
+
+/* Modal Styles */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.image-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    margin: auto;
+    transform: scale(0.9);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-modal.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-image-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
+}
+
+.modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.modal-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.8),
+        rgba(0, 0, 0, 0.4),
+        transparent
+    );
+    transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-image-container:hover .modal-overlay {
+    transform: translateY(0);
+}
+
+.modal-title {
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'Dancing Script', cursive;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.modal-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.close-modal {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1001;
+}
+
+.close-modal:hover {
+    transform: rotate(90deg);
+    color: #ff69b4;
+}
+
+/* Add floating hearts to modal */
+.modal-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 105, 180, 0.1), transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Enhanced Smooth Cursor Effects */
+.cursor {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 105, 180, 0.1);
+    border: 2px solid #ff69b4;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, border-color 0.3s, background-color 0.3s;
+    mix-blend-mode: difference;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.3);
+    backdrop-filter: blur(2px);
+}
+
+.cursor::before {
+    content: '❤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    color: #ff69b4;
+    opacity: 0.8;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.cursor-follower {
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 105, 180, 0.2);
+    border: 1px solid #ff69b4;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 10px rgba(255, 105, 180, 0.2);
+    backdrop-filter: blur(1px);
+}
+
+.cursor-follower::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 6px;
+    height: 6px;
+    background: #ff69b4;
+    border-radius: 50%;
+    transition: transform 0.3s;
+}
+
+/* Cursor States */
+.cursor.hover {
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 105, 180, 0.15);
+    border-color: #ff1493;
+}
+
+.cursor.hover::before {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 1;
+}
+
+.cursor.click {
+    width: 35px;
+    height: 35px;
+    background: rgba(255, 105, 180, 0.2);
+    border-color: #ff1493;
+}
+
+.cursor-follower.hover {
+    width: 30px;
+    height: 30px;
+    background: rgba(255, 105, 180, 0.15);
+    border-color: #ff1493;
+}
+
+.cursor-follower.hover::before {
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.cursor-follower.click {
+    width: 25px;
+    height: 25px;
+    background: rgba(255, 105, 180, 0.2);
+    border-color: #ff1493;
+}
+
+/* Cursor Trail Effect */
+.cursor-trail {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 105, 180, 0.3);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transition: opacity 0.5s ease;
+}
+
+/* Enhanced Love Notes */
+.love-note {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(8px);
+    padding: 1.2rem;
+    border-radius: 15px;
+    color: #fff;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(255, 105, 180, 0.4);
+    border: 1px solid rgba(255, 105, 180, 0.4);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.love-note::before {
+    content: '❤';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    font-size: 1.5rem;
+    color: #ff69b4;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.love-note.active {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Romantic Particle Effects */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 1000;
+}
+
+.particle::before {
+    content: '❤';
+    color: #ff69b4;
+    font-size: 1.5rem;
+    position: absolute;
+    animation: particleFloat 2s ease-in-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Enhanced Memory Card Effects */
+.memory-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff69b4, #ff1493, #ff69b4);
+    border-radius: 16px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.memory-card:hover::before {
+    opacity: 1;
+}
+
+/* Sparkle Effect */
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: #fff;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+@keyframes sparkle {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1) rotate(180deg);
+        opacity: 0;
+    }
+} 
